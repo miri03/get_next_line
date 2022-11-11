@@ -6,21 +6,24 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:03 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/11 18:40:22 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/11 22:02:36 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"get_next_line.h"
 
-char *ft_line(char *s, char *remain)
+char	*ft_line(char *s, char *remain)
 {
 	char	*line;
-	int i = 0;
-	int j = 0;
+	int		i;
+	int		j;
 
+	i = 0;
+	j = 0;
+	if (remain == NULL)
+		return (NULL);
 	while (s[i] && s[i] != '\n')
 		i++;
-//	printf("%d\n",s[i]);
 	if (s[i] == 0)
 		return (NULL);
 	line = malloc(sizeof(char) * (i + 1));
@@ -35,13 +38,11 @@ char *ft_line(char *s, char *remain)
 	return (line);
 }
 
-char *ft_remain(char *s)
+char	*ft_remain(char *s)
 {
 	int	i;
 
 	i = 0;
-//	if (s == NULL)
-//		return (buff);
 	while (s[i] && s[i] != '\n')
 		i++;
 	if (s[i] == '\n')
@@ -62,61 +63,17 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*ptr;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	ptr = NULL;
-//	if (s1 == 0 || s2 == 0)
-//		return (0);
-	if (s1 == NULL)
-		return (strdup(s2));
-	if (s2 == NULL)
-		return (strdup(s1));
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0')
-	{
-		ptr[i] = s2[j];
-		i++;
-		j++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
-
-int	new_line(char *str)
-{
-	while (*str != '\0' && *str != '\n')
-		str++;
-	if (*str == '\n')
-		return (1);
-	return(0);
-}
-
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	char		*buff;
-	static char *remain = NULL;
+	static char	*remain = NULL;
 	int			rd;
-	char		*line = NULL;
+	char		*line;
 	char		*str;
 
+	line = NULL;
 	str = NULL;
 	rd = 1;
-	if (*remain == 0)
-	   printf("ok\n");	
-	printf("[remain%s]\n",remain);
 	if (remain)
 		line = ft_strjoin(remain, line);
 	buff = malloc(sizeof(char) * BUFFER_SIZE + 1); // ?
@@ -126,15 +83,17 @@ char *get_next_line(int fd)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
 		str = ft_strjoin(str, buff);
-	//	printf("%d	%s \n[join = %s]\n",rd, buff, str);
 	}
 	remain = ft_remain(str);
-//	printf("[reste %s]\n",reste);
-	line = ft_strjoin(line, ft_line(str, remain));
+	if (remain == NULL)
+		line = NULL;
+	else
+		line = ft_strjoin(line, ft_line(str, remain));
 	free(buff);
 	bzero(buff, BUFFER_SIZE + 1);
 	return (line);
 }
+
 
 int main()
 {
@@ -142,12 +101,16 @@ int main()
 	char *s;
 	int fd = open("test.txt",O_RDWR);
 	int i = 0;
-	while (str)
+/*	while (str)
 	{
 		str = get_next_line(fd);
 		printf("[result] %s",str);
-		s = get_next_line(fd);
-		printf("[result] %s",s);
-
+	}
+	*/
+	str = get_next_line(fd);
+	while (1)
+	{
+		;
 	}
 }
+
