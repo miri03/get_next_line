@@ -1,40 +1,26 @@
 
 #include"get_next_line.h"
 
+#include<fcntl.h>
+
 #include<stdio.h>
 
 char *get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE];
-	static int	ret;
-	static char	*txt;
-	char	*line;
-	int i = 0;
-	int j = 0;
-	
-	if (ret <= 0)
-	{
-		ret = read(fd, buff, BUFFER_SIZE);
-		txt = malloc(sizeof(char) * ret);
-		txt = buff;
-	}
-	printf("{%s}\n",txt);
-	while (txt[i] && txt[i] != '\n')
-		i++;
-	line = malloc(sizeof(char) * (i + 1));
-	printf("[i]%d\n\n", i);
-	while (i > j)
-	{
-		line[j] = txt[j];
-		j++;
-	}
-	line[j] = 0;
-	return (line);
-}
+	char *buf;
+	static char *txt;
+	int rd;
 
+	buf = malloc(sizeof(char) * BUFFER_SIZE);
+	rd = read(fd, buf, BUFFER_SIZE);
+	printf("%s\n", buf);
+	printf("%d\n", rd);
+	return ("hi");
+}
 int main()
 {
-	int fd = open("test.txt", O_RDWR);
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
+	int fd = open("test.txt",O_RDWR);
+	get_next_line(fd);
+	printf("\n\n\n\n");
+	get_next_line(fd);
 }
