@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:03 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/11 22:02:36 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/11 23:51:58 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,20 @@ char	*get_next_line(int fd)
 	while (rd > 0 && new_line(buff) == 0)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
-		str = ft_strjoin(str, buff);
+		strdup(str = ft_strjoin(str, buff));
+	//	free(str); //free 
 	}
 	remain = ft_remain(str);
 	if (remain == NULL)
 		line = NULL;
 	else
 		line = ft_strjoin(line, ft_line(str, remain));
+
+//	line = ft_line(str, remain);
 	free(buff);
 	bzero(buff, BUFFER_SIZE + 1);
 	return (line);
 }
-
 
 int main()
 {
@@ -101,16 +103,18 @@ int main()
 	char *s;
 	int fd = open("test.txt",O_RDWR);
 	int i = 0;
-/*	while (str)
+	while (str)
 	{
 		str = get_next_line(fd);
-		printf("[result] %s",str);
+		printf("%s",str);
 	}
-	*/
+/*
+	s = get_next_line(fd);
 	str = get_next_line(fd);
 	while (1)
 	{
 		;
 	}
+*/
 }
 
