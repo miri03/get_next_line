@@ -12,7 +12,7 @@
 
 #include"get_next_line.h"
 
-char	*ft_line(char *s, char *remain)
+char	*ft_line(char *s)
 {
 	char	*line;
 	int		i;
@@ -20,13 +20,11 @@ char	*ft_line(char *s, char *remain)
 
 	i = 0;
 	j = 0;
-	if (remain == NULL)
-		return (NULL);
-	while (s[i] && s[i] != '\n')
+	while (s[i] && s[i] != '\n') // '\0'
 		i++;
 	if (s[i] == 0)
 		return (NULL);
-	line = malloc(sizeof(char) * (i + 1));
+	line = malloc(sizeof(char) * (i + 2));
 	if (line == NULL)
 		return (NULL);
 	while (i > j)
@@ -34,23 +32,26 @@ char	*ft_line(char *s, char *remain)
 		line[j] = s[j];
 		j++;
 	}
+
 	line[j] = '\n';
+	line[j + 1] = '\0';
+//	free(s);
 	return (line);
 }
 
 char	*ft_remain(char *s)
 {
 	int	i;
+	char	*remain;
 
 	i = 0;
 	while (s[i] && s[i] != '\n')
 		i++;
 	if (s[i] == '\n')
-	{
 		i++;
-		return (&s[i]);
-	}
-	return (NULL);
+	remain = strdup(&s[i]);
+	
+	return (remain);
 }
 
 size_t	ft_strlen(const char *s)
@@ -66,51 +67,48 @@ size_t	ft_strlen(const char *s)
 char	*get_next_line(int fd)
 {
 	char		*buff;
-	static char	*remain = NULL;
+	static char	*string = NULL;
 	int			rd;
 	char		*line;
-	char		*str;
 
-	line = NULL;
-	str = NULL;
 	rd = 1;
-	if (remain)
-		line = ft_strjoin(remain, line);
-	buff = malloc(sizeof(char) * BUFFER_SIZE + 1); // ?
+	if (fd < 0)
+		return (NULL);
+	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buff == NULL)
 		return (NULL);
 	while (rd > 0 && new_line(buff) == 0)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
-		strdup(str = ft_strjoin(str, buff));
-	//	free(str); //free 
+		if (rd <= 0)
+		{
+			free (buff);
+			return (NULL);
+		}
+		buff[rd] = '\0';
+		string = ft_strjoin(string, buff); //freed string
 	}
-	remain = ft_remain(str);
-	if (remain == NULL)
-		line = NULL;
-	else
-		line = ft_strjoin(line, ft_line(str, remain));
-
-//	line = ft_line(str, remain);
+	line = ft_line(string); //freed string = error
+	string = ft_remain(string); // free? 
 	free(buff);
-	bzero(buff, BUFFER_SIZE + 1);
-	return (line);
+	return(line);
 }
 
 int main()
 {
 	char *str;
 	char *s;
-	int fd = open("test.txt",O_RDWR);
+	int fd = open("tt.txt",O_RDWR);
 	int i = 0;
+
 	while (str)
 	{
 		str = get_next_line(fd);
+		free(str);
 		printf("%s",str);
 	}
+
 /*
-	s = get_next_line(fd);
-	str = get_next_line(fd);
 	while (1)
 	{
 		;
@@ -118,3 +116,11 @@ int main()
 */
 }
 
+/*
+int main()
+{
+//	char *str = "hello\n123";
+	char *remain = ft_remain("hello\n123");
+	printf("%s\n", remain);
+}
+*/
