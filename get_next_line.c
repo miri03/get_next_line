@@ -98,13 +98,13 @@ int main()
 {
 	char *str;
 	char *s;
-	int fd = open("tt.txt",O_RDWR);
+	int fd = open("test.txt",O_RDWR);
 	int i = 0;
 
 	while (str)
 	{
 		str = get_next_line(fd);
-		free(str);
+	//	free(str);
 		printf("%s",str);
 	}
 
