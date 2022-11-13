@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:15 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/11 22:01:19 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/13 15:54:13 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5 
+#  define BUFFER_SIZE 1 
 # endif
 
 # include<strings.h>

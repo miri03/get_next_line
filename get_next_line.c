@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:03 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/11 23:51:58 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/13 17:57:33 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,29 @@ char	*ft_line(char *s)
 
 	i = 0;
 	j = 0;
-	while (s[i] && s[i] != '\n') // '\0'
+	if (s == NULL || *s == 0)
+	   return (NULL);	
+	while (s[i] && s[i] != '\n')
 		i++;
-	if (s[i] == 0)
-		return (NULL);
-	line = malloc(sizeof(char) * (i + 2));
+//	if (s[i] == 0)
+//		return (NULL);
+	if (s[i] == '\n')
+		i = i + 1;
+	line = malloc(sizeof(char) * (i + 1));
 	if (line == NULL)
 		return (NULL);
-	while (i > j)
+	while (s[j] && s[j] != '\n')
 	{
 		line[j] = s[j];
 		j++;
 	}
-
-	line[j] = '\n';
-	line[j + 1] = '\0';
-//	free(s);
+	if (s[j] == '\n')
+	{
+		line[j] = '\n';
+		j++;
+	}
+	line[j] = '\0';
+	free(s);
 	return (line);
 }
 
@@ -72,49 +79,58 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	rd = 1;
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buff == NULL)
 		return (NULL);
-	while (rd > 0 && new_line(buff) == 0)
+	while (rd > 0 && new_line(string) == 0)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
-		if (rd <= 0)
+		if (rd < 0) // =
 		{
 			free (buff);
 			return (NULL);
 		}
 		buff[rd] = '\0';
-		string = ft_strjoin(string, buff); //freed string
+		if (rd == 0)
+		{
+		//	return (buff);
+			free (buff);
+		}
+		string = ft_strjoin(string, buff);
 	}
-	line = ft_line(string); //freed string = error
-	string = ft_remain(string); // free? 
+	line = ft_line(string);
+	string = ft_remain(string);
+//	printf("%d\n", *string);
 	free(buff);
 	return(line);
 }
 
+/*
 int main()
 {
 	char *str;
 	char *s;
-	int fd = open("test.txt",O_RDWR);
+	char *a;
+	int fd = open("tt.txt",O_RDWR);
 	int i = 0;
 
 	while (str)
 	{
 		str = get_next_line(fd);
-	//	free(str);
 		printf("%s",str);
 	}
 
-/*
+//	printf("%s",ft_line("helloi"));
+
 	while (1)
 	{
 		;
 	}
-*/
 }
+*/
+
 
 /*
 int main()

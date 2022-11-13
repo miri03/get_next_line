@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:45:17 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/11 23:34:36 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/13 13:15:19 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	j = 0;
 	ptr = NULL;
-
+	if (!s1 && !s2)
+		return (NULL);
 	if (s1 == NULL)
 		return (strdup(s2));
 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
@@ -48,6 +49,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 int	new_line(char *str)
 {
+	if (!str)
+	  return (0);	
 	while (*str != '\0' && *str != '\n')
 		str++;
 	if (*str == '\n')
