@@ -1,1 +1,94 @@
-sdfgrthjuylp['[;lkjhgfdxfrtyuioyfhgvhjjl
+#include"get_next_line.h"
+
+char	*ft_line(char *s)
+{
+	char	*line;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s[i])
+	   return (NULL);	
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
+		i = i + 1;
+	line = malloc(sizeof(char) * (i + 1));
+	if (line == NULL)
+		return (NULL);
+	while (s[j] && s[j] != '\n')
+	{
+		line[j] = s[j];
+		j++;
+	}
+
+	if (s[j] == '\n')
+	{
+		line[j] = '\n';
+		j++;
+	}
+	return (line[j] = '\0', line);
+}
+
+char	*ft_remain(char *s)
+{
+	int	i;
+	char	*remain;
+
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == 0)
+	{
+		free(s);
+		return (NULL);
+	}
+	if (s[i] == '\n')
+		i++;
+	remain = strdup(&s[i]);
+	free(s);	
+	return (remain);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	return (len);
+}
+
+char	*get_next_line(int fd)
+{
+	char		*buff;
+	static char	*string ;
+	int			rd;
+	char		*line;
+
+	rd = 1;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buff == NULL)
+		return (NULL);
+	while (rd > 0 && new_line(string) == 0)
+	{
+		rd = read(fd, buff, BUFFER_SIZE);
+		if (rd == -1)
+		{
+			free(string);
+			string = NULL;
+			free (buff);
+			return (NULL);
+		}
+		buff[rd] = '\0';
+		string = ft_strjoin(string, buff);
+	}
+	line = ft_line(string);
+	string = ft_remain(string);
+	free(buff);
+	return(line);
+}

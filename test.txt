@@ -1,4 +1,3 @@
-0123456789 *
-ABCDEFGHIJKLMNOPQ /
-abcdefghijkmnopqrstuv =
-9876543210 .
+bbbbbbbbbb
+cccccccccc
+dddddddddd

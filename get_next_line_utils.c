@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:45:17 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/13 13:15:19 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/14 14:49:30 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	j = 0;
 	ptr = NULL;
-	if (!s1 && !s2)
+	if (s2 == NULL)
 		return (NULL);
 	if (s1 == NULL)
 		return (strdup(s2));
@@ -29,28 +29,19 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (ptr == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	if (s2 != NULL)
-	{
-		while (s2[j] != '\0')
-		{
-			ptr[i] = s2[j];
-			i++;
-			j++;
-		}
-		ptr[i] = '\0';
-	}
+		ptr[j++] = s1[i++];
+	j = 0;
+	while (s2[j] != '\0')
+		ptr[i++] = s2[j++];
+	ptr[i] = '\0';
 	free(s1);
 	return (ptr);
 }
 
 int	new_line(char *str)
 {
-	if (!str)
-	  return (0);	
+	if (str == NULL)
+		return (0);
 	while (*str != '\0' && *str != '\n')
 		str++;
 	if (*str == '\n')
