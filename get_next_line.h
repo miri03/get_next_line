@@ -6,22 +6,14 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:15 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/13 15:54:13 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/15 23:31:41 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
-# endif
-
-# include<strings.h>
-# include<string.h>
-# include<stdio.h>
 # include<unistd.h>
-# include <fcntl.h>
 # include<stdlib.h>
 
 char	*get_next_line(int fd);
@@ -30,5 +22,6 @@ int		new_line(char *str);
 size_t	ft_strlen(const char *s);
 char	*ft_remain(char *s);
 char	*ft_line(char *s);
+char	*ft_strdup(const char *s1);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:03 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/14 15:39:46 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/15 23:33:28 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_read(char *string, int fd)
 		buff[rd] = '\0';
 		string = ft_strjoin(string, buff);
 	}
-	free(buff);
+	free(buff); // ?
 	return (string);
 }
 
@@ -73,26 +73,16 @@ char	*ft_remain(char *s)
 	i = 0;
 	while (s[i] && s[i] != '\n')
 		i++;
-	if (s[i] == 0)
+	if (s[i] == '\0')
 	{
 		free(s);
 		return (NULL);
 	}
 	if (s[i] == '\n')
 		i++;
-	remain = strdup(&s[i]);
+	remain = ft_strdup(&s[i]);
 	free(s);
 	return (remain);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
 }
 
 char	*get_next_line(int fd)
@@ -103,7 +93,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	string = ft_read(string, fd);
-	if (string == NULL)
+	if (string == NULL) // if rd == -1 
 		return (NULL);
 	line = ft_line(string);
 	string = ft_remain(string);
@@ -111,24 +101,19 @@ char	*get_next_line(int fd)
 }
 
 /*
+#include<fcntl.h>
+#include<stdio.h>
+
 int main()
 {
 	char *str;
+	str = "i";
 	int fd = open("test.txt",O_RDWR);
-	// while (str)
-	// {
-	// 	str = get_next_line(fd);
-	// 	printf("%s",str);
-	// }
+	while (str)
+	 {
+	 	str = get_next_line(fd);
+	 	printf("%s",str);
+	 }
 	
-	printf("%s",ft_strjoin("aa","ff"));
-}
-*/
-/*
-int main()
-{
-//	char *str = "hello\n123";
-	char *remain = ft_remain("hello\n123");
-	printf("%s\n", remain);
 }
 */
