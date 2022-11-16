@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 11:22:15 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/16 18:35:32 by meharit          ###   ########.fr       */
+/*   Created: 2022/11/16 18:33:09 by meharit           #+#    #+#             */
+/*   Updated: 2022/11/17 00:53:33 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define  GET_NEXT_LINE_BONUS_H
 
-# include<unistd.h>
 # include<stdlib.h>
+# include<limits.h>
+# include<unistd.h>
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);

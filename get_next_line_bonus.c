@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 11:22:03 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/17 00:50:40 by meharit          ###   ########.fr       */
+/*   Created: 2022/11/16 18:16:10 by meharit           #+#    #+#             */
+/*   Updated: 2022/11/17 00:54:53 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read(char *string, int fd)
 {
@@ -87,33 +87,40 @@ char	*ft_remain(char *s)
 
 char	*get_next_line(int fd)
 {
-	static char	*string;
 	char		*line;
+	static char	*string[OPEN_MAX];
+	int			rd;
 
+	rd = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	string = ft_read(string, fd);
-	if (string == NULL)
+	string[fd] = ft_read(string[fd], fd);
+	if (string[fd] == NULL)
 		return (NULL);
-	line = ft_line(string);
-	string = ft_remain(string);
+	line = ft_line(string[fd]);
+	string[fd] = ft_remain(string[fd]);
 	return (line);
 }
 
 /*
 #include<fcntl.h>
 #include<stdio.h>
-
 int main()
 {
-	char *str;
-	str = "i";
-	int fd = open("test.txt",O_RDWR);
-	while (str)
-	 {
-	 	str = get_next_line(fd);
-	 	printf("%s",str);
-	 }
-	
+
+	int fd = open("test1", O_RDWR);
+	int fd1 = open("test2", O_RDWR);
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd1));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd1));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd1));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd1));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd1));
+
+
 }
 */
