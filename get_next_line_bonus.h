@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:33:09 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/17 00:53:33 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/17 02:06:39 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include<limits.h>
 # include<unistd.h>
 
+char	*ft_read(char *string, int fd);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 int		new_line(char *str);

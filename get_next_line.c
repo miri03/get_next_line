@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:03 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/17 00:50:40 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/17 02:05:18 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,3 @@ char	*get_next_line(int fd)
 	string = ft_remain(string);
 	return (line);
 }
-
-/*
-#include<fcntl.h>
-#include<stdio.h>
-
-int main()
-{
-	char *str;
-	str = "i";
-	int fd = open("test.txt",O_RDWR);
-	while (str)
-	 {
-	 	str = get_next_line(fd);
-	 	printf("%s",str);
-	 }
-	
-}
-*/
