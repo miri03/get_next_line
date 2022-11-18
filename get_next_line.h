@@ -6,12 +6,16 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:22:15 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/17 02:04:49 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/18 09:09:59 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 # include<unistd.h>
 # include<stdlib.h>

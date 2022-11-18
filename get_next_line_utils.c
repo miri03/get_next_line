@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:45:17 by meharit           #+#    #+#             */
-/*   Updated: 2022/11/17 01:57:35 by meharit          ###   ########.fr       */
+/*   Updated: 2022/11/17 03:37:41 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
+	if (s == NULL)
+		return (0);
 	while (s[len] != '\0')
 		len++;
 	return (len);
